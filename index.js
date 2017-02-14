@@ -106,6 +106,7 @@ WebpackCordovaPlugin.prototype.apply  = function(compiler){
      */
     var iosPath = path.join(cwd,'platforms','ios','www');
     var androidPath = path.join(cwd,'platforms','android','assets','www');
+    var browserPath = path.join(cwd,'platforms','browser','www');
 
     if(platform === "ios" || (platform === undefined && fs.existsSync(iosPath))){
       if(!compiler.options.devServer) compiler.options.devServer = {};
@@ -113,6 +114,9 @@ WebpackCordovaPlugin.prototype.apply  = function(compiler){
     } else if(platform === "android" || (platform === undefined && fs.existsSync(androidPath))){
       if(!compiler.options.devServer) compiler.options.devServer = {};
       compiler.options.devServer.contentBase = androidPath;
+    } else if(platform === "browser") { // added browser case to support browser config.xml configuration
+      if(!compiler.options.devServer) compiler.options.devServer = {};
+      compiler.options.devServer.contentBase = browserPath;
     }
 
 };
